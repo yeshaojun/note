@@ -1,0 +1,183 @@
+css3兼容性不是很好，需要添加须有前缀(-webkit-)
+移动端支持程度优于PC
+
+//选择器
+	1.属性选择器
+		E[attr~='']表示一个单独的属性值，这个属性值是以空格分隔的
+		E[attr|='']表示要么是一个单独的属性值，要么这个属性值是以'-'分隔的
+		E[attr*='']包含所选元素的
+		E[attr^='']表示以某字符开头的
+		E[attr$='']表示以某字符结尾的
+	2.伪类选择器
+		E:first-child 表示当前元素的父元素的第一个子元素(以父级做参考),E必须在相对应的位置
+		E:first-of-type 相对于父级做参考，选择特定类(E)的第一个元素
+		E:nth-of-type(n) 相对于父元素做参考，选择特定元素的第那个元素
+		
+		E:only-child()
+		E:only-of-type
+		E:empty 表示元素没有任何内容
+		E:target(必须结合锚点) 
+
+		如何选择前三个 nth-child(-n+3);
+	3.伪元素选择器
+		E::before{
+
+		}
+		E::selection{
+			文字选中
+		}
+		E:placeholder{
+			改变placeholder样式
+		}
+		//input::-webkit-input-placeholder
+
+//颜色
+	1. opacity透明度 （子元素会继承父元素的透明度）transparent（完全透明，类似玻璃）;
+	2.HSLA:
+
+//文本
+	文字阴影
+		text-shadow:1px(左偏移量) 1px(上偏移量) 5px(模糊度) #ccc;
+	文字换行
+		word-break:break-all;把文本当成一个整体进行换行
+		word-wrap:break-word;中文和英文分开
+		white-space:pre;保留空格
+		white-space:pre-wrap;保留空格，但也换行
+		white-space:pre-line;
+		*white-space:nowrap;不显示空格并在一行显示
+
+	文字溢出
+		1.单行文本溢出
+	    	text-overflow:ellipsis;
+			white-space:nowrap;
+			overflow:hidden;
+		2.多行溢出(只适用于webkit内核)
+			text-overflow:ellipsis;
+			overflow:hidden;
+			display:-webkit-box;
+			-webkit-line-clamp:2;
+			-webkit-box-orient:vertical;
+
+//边框圆角
+	border-radius:50% 30%;(相当于本身的百分比)1~4个参数
+
+//边框阴影
+	box-shadow：2px(水平偏移量) 2px(垂直偏移量) 5px(模糊度) #ccc(颜色);
+	偏移量和模糊度是可以相加计算的,负号只代表方向
+
+	box-shadow:2px(水平) 2px(垂直) 5px(模糊) 10px(扩展) #ccc;
+
+	box-shadow:insert(设置内阴影) 2px(水平) 2px(垂直) 5px(模糊) 10px(扩展) #ccc;
+
+//边框图片
+	border-image-slice:图片裁切
+	border-image-width:图片大小
+	border-image-souce:图片来源
+	border-image-repeat；round(平铺但会)/repeat(平铺但会截断背景图片)/strenght(拉伸)
+
+
+//css背景
+	background-color:red;
+	background-clip:conten-box;//(可以修改背景区域)背景填充从content部分开始填充
+					padding-box;
+	//默认的背景填充区域从border开始
+
+
+	background-origin:border-box(修改的是图片定位原点)
+	background-position:
+
+	background-size:cover/container;
+	background-size与background-clip无关，与background-origin保持一致
+	
+	box-sizing:contex-box(允许以特定的方式定义匹配某个区域的特定元素)
+	标准盒模型，长度等于宽度+border+padding
+
+	box-sizing:borde-box(padding和border被包含在width和height之内)
+	怪异模式下的盒模型 
+
+	多重背景:
+
+//渐变(让物体有立体感)
+	线性渐变:
+		background-image:linear-gradient(多个颜色);
+		//用角度确定方向
+		background-image:linear-gradient(0deg,yellow,green);
+		正上方为0度,顺时针旋转(90度为从左到右)
+		角度还有另一种写法，用关键字来写
+		background-image:linear-gradient(to top,yellow,green);
+
+		->控制渐变
+			background-image:linear-gradient(to top, yellow 20%,green 40%);
+
+	径向渐变
+		background-image:radial-gradient(yellow,green):(中心点向四周发散)
+		background-image:radial-gradient(120px at center center , yellow,green)//渐变范围120px,从中心点开始渐变
+		//渐变范围是一个圆，可以设置长半径和短半径,中心点可以设置像素
+
+	重复渐变
+		background-image:repeating-linear-gradient(yellow 10%,green 40%);//重复线性渐变
+		background-image:repeating-radial-gradient(yellow 10%,green 40%);//重复径向渐变
+
+	渐变应用
+		background-image:linear-gradient('')
+//伸缩布局
+	display:flex;
+
+	多列布局
+		-webkit-column-count:4;//分成几列
+		-webkit-column-width:400px;//当列宽与列数的乘积大于盒子总宽,会自动调整列数
+		-webkit-column-gap:60px;//调整列与列之间的宽度
+		-webkit-column-rule:2px dashed red;//设置边框分割线
+
+		-webkit-column-span:all;代表标题占所有列
+
+//过渡(样式过渡)
+	transition:all 1s;
+	//当前元素只要有属性发生变化时,可以平滑的进行过渡;
+	transiton-property:left;//过渡的属性
+	transtion-duration:2s;//过渡的时间
+	transition-timing-function:Linear;//匀速过渡
+							   ease;//先慢后快再慢
+	transition-delay:2s;//延时过渡
+
+	帧动画,补间动画
+
+//动画
+	animation:change 5s;
+	//动画序列 @keyframes开头
+	@keyframes change{
+		0%{
+
+		}
+		50%{
+		
+		}
+		100%{
+		
+		}
+	}
+	//animation中有三个属性与过渡一致，transtion-duration,transition-timing-function,transition-delay
+	
+	animation-name:change;//动画名称
+	animation-duration:5s;//动画时间
+	animation-fill-mode:forwards;//动画结束后的状态
+	animation-iteration-count:infinite;//无限次播放
+	animation-delay:1s;//动画延迟
+	animation-play-state；paused;//动画暂定
+	animation-directon:alternate;/动画结束之后，反方向执行
+	animation-timing-function:linear;//动画方式
+
+	动画应用
+
+//转换
+	旋转
+		transform:rotate()旋转
+
+		transform-origin:旋转的圆心
+	缩放
+		transform:scale(x,y)x,y可以是小数
+	移动
+		transform:translate()
+
+//媒体查询
+	

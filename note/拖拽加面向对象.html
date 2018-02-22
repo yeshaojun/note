@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		*{margin: 0px; padding: 0px;}
+		#div1{
+			position: absolute;
+			width: 100px;
+			height: 100px;
+			background: red;
+		}
+	</style>
+</head>
+<body>
+	<div id="div1">
+		
+	</div>
+	<script>
+	window.onload=function(){
+		new Drag('div1');
+	}
+
+	function Drag(id){
+			_this=this;
+			this.disX=0;
+			this.disY=0;
+			this.obj=document.getElementById(id);
+			this.obj.onmousedown=function(){
+				_this.fnDown();
+			}
+	}
+	Drag.prototype.fnDown=function(ev){
+			_this=this;
+			var ev= ev || event;
+			this.disX=ev.clientX-this.obj.offsetLeft;
+			this.dixY=ev.clientY-this.obj.offsetTop;
+			document.onmousemove=function(){
+				_this.fnMove();	
+			};
+			document.onmouseup=function(){
+				_this.fnUp();
+			}
+			return false; 
+	}
+	Drag.prototype.fnMove=function(ev){
+			var ev= ev || event;
+			var L=ev.clientX-this.disX;
+			var T=ev.clientY-this.disY;
+			document.title='鼠标:'+ev.clientX+',disX:'+this.disX;
+			if(L<0) //当DIV的Left小于0，也就是移出左边
+		    {
+		        L=0; //就把DIV的Left设置为0，就不能移出左边
+		    }
+		    else if(L>document.documentElement.clientWidth-this.obj.offsetWidth) //屏幕宽度减去DIV的宽度就得出了DIV到达最右边的宽度，如果Left大于这个像素
+		    {
+		        L=document.documentElement.clientWidth-this.obj.offsetWidth; //就把Left设置为这个像素
+		    }
+		    if(T<0) //当DIV的To小于0，也就是移出左边
+		    {
+		        T=0; //就把DIV的Top设置为0，就不能移出上边
+		    }
+		    else if(T>document.documentElement.clientHeight-this.obj.offsetHeight) //屏幕高度减去DIV的高度就得出了DIV到达最下面边的像素，如果Top大于这个像素
+		    {
+		       T=document.documentElement.clientHeight-this.obj.offsetHeight; //就把Top设置为这个像素
+		    }
+			this.obj.style.left=L + 'px';
+			this.obj.style.top=T + 'px';
+	}
+
+	Drag.prototype.fnUp=function(){
+			document.onmousemove=null; //把鼠标移动清楚
+	     	document.onmouseup=null; 
+	}
+
+	</script>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+		#div1{
+			position: absolute;
+			width: 100px;
+			height: 100px;
+			background: red;
+		}
+	</style>
+</head>
+<body>
+	肉以肉给我退偶尔物理
+	<div id="div1"></div>
+	<script type="text/javascript">
+		var odiv=document.getElementById('div1');
+		drag(odiv);
+		// onmousedown:选择元素
+		// onmousemove：移动元素
+		// onmouseup：释放元素
+		function drag(obj){
+			obj.onmousedown=function(ev){
+				var ev=ev || evrnt;
+				var disX=ev.clientX-this.offsetLeft;
+				var disY=ev.clientY-this.offsetTop;
+				if(obj.setCapture){
+					obj.setCapture();
+				}
+
+				document.onmousemove=function(ev){
+					var ev=ev || evrnt;		
+					var L=ev.clientX-disX;
+					var T=ev.clientY-disY;
+					if(L<0){
+						L=0;
+					}
+					else if(L>document.documentElement.clientWidth-obj.offsetWidth){
+						L=document.documentElement.clientWidth-obj.offsetWidth;
+					}
+					if(T<0){
+						T=0;
+					}
+					else if(T>document.documentElement.clientHeight-obj.offsetHeight){
+						T=document.documentElement.clientHeight-obj.offsetHeight;
+					}
+					obj.style.left = L+ 'px';
+					obj.style.top = T+ 'px';
+				}
+				document.onmouseup=function(){
+					document.onmousemove=document.onmouseup=null;
+					if(obj.releaseCapture){
+						obj.releaseCapture();
+					}
+
+				}
+			return false;
+			}
+
+		}
+
+		
+	</script>
+	<!-- 拖拽的时候，如果有文字被选中，会产生问题 -->
+		<!-- 浏览器的默认行为：当鼠标按下的时候，如果页面中有文字被选中，会触发浏览器的默认拖拽文字事件 -->
+		<!-- 标准下：阻止默认行为 return false -->
+		<!-- setCapture()：设置全局捕获，当我们给元素添加全局捕获之后，会监听后续的所有事件，当有事件发生的时候，就会被当前设置了全局捕获的元素所触发 -->
+		<!-- ie:有，并且有效果 ff:有，但效果 chrome: -->
+</body>
+</html>

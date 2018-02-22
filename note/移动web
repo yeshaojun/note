@@ -1,0 +1,24 @@
+// 1.bootsrtap
+// 框架：预先写好的一些方法集合
+// css,img,font,lib,favicon.icon
+
+// 视口
+	// 作用：在移动浏览器中，当页面宽度超出设备的宽度浏览器内容虚拟了一个页面容器，
+	// 然后将这个页面容器缩放到设备那么大然后战士
+
+	// 目前大多数手机浏览器的视口(承载页面的容器)宽度都是980
+	// 视口的宽度可以通过meta标签进行设置
+
+	// <meta  name="viewport" content="width=device-width,initial-sacle="1.0" user-scabable="no">
+	// user-scabable 是否允许用户自行缩放(yes/no;1/0) 
+	// minimum-scale:最小缩放
+	// maximum-sacle：最大缩放值
+	
+
+	// 媒体查询：
+	
+	// a:hover >img 伪类选择器后还可以跟选择器
+	// ['']{}属性选择器
+	// 伪类选择器P::
+	// 加号选择器
+

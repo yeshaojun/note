@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>仿百度搜索</title>
+	<link rel="stylesheet" type="text/css" href="css/app.css">
+	<script type="text/javascript" src="lib/vue.js"></script>
+	<script type="text/javascript" src="lib/vue-resource.js"></script>
+	<script type="text/javascript" src="js/app.js"></script>
+</head>
+<body>
+<div>
+	<div class="container">
+		<img src="img/logo.png">
+		<div class="search-body">
+			<input type="text" name="" v-model="search" class="search-input" @keyup="get($event)" v-model="search" @keydown.down="changeDown()" @keydown.up.prevent="changeUp()">
+			<span class="search1" @click="find">百度一下</span>
+			<div class="result">
+				<ul v-show="dataList.length!=0">
+					<li v-for="(value,index) in dataList" :class="{resultbck:index==now}" @mouseover="mouse(index)" @mouseout="leave()" @click="select(value)">
+						{{value}}
+					</li>
+				</ul>
+			</div>	
+		</div>
+		
+	</div>
+</div>
+</body>
+</html>

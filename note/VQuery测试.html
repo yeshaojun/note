@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="VQuery.js"></script>
+	<!-- <script src="./jquery-3.2.1.min.js"></script> -->
+</head>
+<body>
+	<div id="div1">
+		
+	</div>
+	<script>
+		$().extend('size',function(){
+			return this.element.length;
+		})
+		$(function(){
+
+			alert($('#div1').size());
+		})
+	</script>
+</body>
+</html>

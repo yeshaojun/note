@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script type="text/javascript" src="lib/vue.js"></script>
+	<script type="text/javascript" src="lib/vue-resource.js"></script>
+</head>
+<body>
+	<template id="temp">
+		<div>
+			<h1>这是一个标题</h1>
+			<ul>
+				<li v-for="value in msg"><a href="#">{{value}}</a></li>
+			</ul>
+			<h3>---------获取子元素的数据-------------</h3>
+			<h6>
+				{{getb}}
+			</h6>
+			<h3>---------子组件内容-------------</h3>
+			<bbb :m="msg" @xx-msg="get"></bbb>			
+
+		</div>
+	</template>
+
+	<template id="tempb">
+		<div>
+			<h1>我是子组件BBBB</h1>
+			<span>{{msgb}}</span>
+			<h3>---------获取父元素的数据-------------</h3>
+			<ul>
+				<li v-for="value in m"><a href="#">{{value}}</a></li>
+			</ul>
+			<input type="button" name="" value="点击获取子组件数据" @click="send">
+		</div>
+	</template>
+
+	<div id="demo">
+		<aaa></aaa>	
+	</div>
+	
+
+	<script type="text/javascript">
+		new Vue({
+			el:"#demo",
+			data:{
+			},
+			components:{
+				"aaa":{
+					data(){
+						return {
+							msg:["home","home1","contact","suggest"],
+							getb:""
+						}
+					},
+					template:'#temp',
+					methods:{
+						get(msg){
+							this.getb=msg;
+						}
+					},
+					components:{
+						'bbb':{
+							data(){
+								return {
+									msgb:"这是子组件b的数据"
+								}
+							},
+							props:{
+								'm':Array
+							},
+							template:'#tempb',
+							methods:{
+								send:function(){
+									this.$emit('xx-msg',this.msgb);
+								}
+							}
+
+						}
+					}	
+				}
+				
+			}
+		})
+
+	</script>
+</body>
+</html>

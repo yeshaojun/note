@@ -1,0 +1,550 @@
+
+vue和angular的区别
+	vue——简单易学,指令以v-xxx,一片html代码配合json，在new出来vue实例,适合移动项目,小巧
+	angular——指定ng-xxx,所有属性和方法都挂到$scope上,更会适合pc端
+
+vue和angular的相同点
+	不兼容IE
+
+angular.js一些常用的指定复习
+	ng-model
+	ng-repeat
+	ng-click
+	ng-showw
+
+vue一些常用指令	
+	指令：扩展html标签的功能
+	表单：v-model  一般用来表单元素上(input)
+	循环：v-for="name in arr"  自带一个数据{{$index}}，如果arr是json,那还有一个参数{{$key}}
+	事件：v-on:click/mousedown/dblclick/....
+	显示/消失 v-show
+
+vue事件深入
+	v-on:click可以简写成@click
+	事件对象：
+		@click($event);
+	事件冒泡:
+		1.ev.cancelBubble
+		2.@click.stop();(推荐阻止冒泡写法)
+	事件默认事件
+		1.ev.preventDefault;
+		2.@contextmenu.prevent()(推荐阻止默认事件)
+	键盘事件
+		@keydown键盘事件  ev.keyCode接收建码 回车keyCode=13;
+	常用键
+		回车,上下左右，BABA
+		@keyup/down.13()表示回车
+		@keyup/down.enter()也表示回车
+
+属性
+	<img v-bind:src="src">(推荐绑定属性方式)
+	<img src="{{src}}">效果也能出来，但不推荐
+	简写方式:src
+
+	class和style
+		:class="[red,b]" 这个red是data里面的数据(第一种用法)
+		:class="{red:ture,b:false}"可以把json数据放到data里面(第二种用法)
+
+		:style="{width:2oopx,height:200px}"直接使用json
+		注意:复合用驼峰命名法
+
+模板
+	{{}}	数据更新模板也变化(双向绑定)
+	{{*}}	只绑定一次
+
+	v-html
+
+过滤器
+	{{'hello'|uppercase}}
+	{{'HELLO'|lowercase}}
+	{{'hello'|capitalize}}首字母大写
+
+	currency钱
+
+	debounce 配合事件(延迟执行)
+
+	数组配合使用过滤器
+		limitBy 取几个数据
+		limitBy 2,3 第一个参数是取几个数据,第二个参数表示从哪开始
+
+		filterBy 'w' 过滤数据,过滤包含W的数据(搜索很好用)
+
+		orderBy 1 用来排序(1表示正序，-1表示倒序)
+
+自定义过滤器	
+	Vue.filter("name",function(input){
+
+	})
+
+	过滤html标记
+		Vue.filter("filterHtml",function(input){
+			return input.replace(/[^<+]>/g,'');
+		})
+		
+双向过滤器
+	Vue.filter({
+		read:function(){ //默认形式model——>view
+			return input.replace(/[^<+]>/g,'');
+		},
+		write:function(){//view——>model
+
+		}
+	})
+
+交互
+	如果vue如果想做交互，必须引入vue-resouce
+		get
+			获取一个文本数据
+			new vue({
+				data:{},
+				methods{
+					get:function(){
+						this.$http.get('get.php',{
+							a:1,
+							b:2
+						}).then(function(res){
+							console.log(res.data);
+						},function(res){
+							console.log(res.status)
+						})
+					}
+				}
+
+			})
+		post
+			new vue({
+				data:{},
+				methods{
+					post:function(){
+						this.$http.post('post.php',{
+							a:1,
+							b:2
+						},{
+							emulateJSON:true
+						}).then(function(res){
+							console.log(res.data);
+						},function(res){
+							console.log(res.status)
+						})
+					}
+				}
+
+			})
+		jsonp
+			new vue({
+				data:{},
+				methods{
+					post:function(){
+						this.$http.jsonp('地址',{
+							a:1//参数
+						},{
+							jsoanp:'cb'//callback的名字,默认名称为callback
+						}).then(function(res){
+							console.log(res.data);
+						},function(res){
+							console.log(res.status)
+						})
+					}
+				}
+
+			})
+
+vue生存周期
+	钩子函数
+		created()  		——>实例已经创建的时候
+		beforeCompile   ——>编译之前
+		compiled		——>编译之后
+		ready           ——>插入到文档中
+
+		beforeDestory	——>销毁之前
+		destoryed		——>销毁之后
+
+用户会看到花括号标记
+	v-cloak 防止闪烁,用在比较大的段落
+
+	v-text="msg"
+
+计算属性的时候
+	//b是一个属性
+	computed:{
+		b:function(){//默认调用的是get方式
+			//业务逻辑代码
+			return 1;
+		}
+	}
+
+	computed:{
+		b:{
+			get:function(){
+				return this.a+1;
+			},
+			set:function(val){
+				this.a=val;
+			}
+		}
+	}
+	
+	computed里面可以放一些业务逻辑代码,记的return;
+
+vue实例简单的方法
+	var vm=new Vue();
+	vm.$el 就相当于元素
+
+	vm.$data 就相当于本身的数据对象
+
+	vm.$mount('#box'); //手动挂载 相当于el:"#box";
+
+	new Vue({
+		aa:11 //自定义属性
+	});
+
+	vm.$options.aa; 加载自定义属性
+
+	vm.$destory //销毁对象
+
+循环:
+	v-for="val in arr" 
+
+	如果有重复数据,不会继续添加
+
+	添加track-by="$index";
+
+自定义指令
+	属性指令
+		Vue.directive(指定名称,fucntion(){
+			this.el.style.background="red";
+		})
+
+		指令名称必须以v-开头，但是在写指令名称的时候去掉v-
+
+		v-red="green" 可以向自定义指令传参
+
+	元素指令(用处不大,不推荐)
+		Vue.elementDirective('zhs-red',{
+			bind:function(){
+				this.el.style.background='red';
+			}
+		})
+
+自定义键盘信息
+	Vue.drective('on').keyCodes.ctrl=17;
+
+监听数据
+	vm.$watch(name,fn);//name表示数据名字(浅度监视)
+	vm.$watch(name,fn,{deep:true});如果监视的name是个对象,则需要进行深度监视//(深度监视)
+
+Vue过渡
+	第一种方式
+		.fade-transition{
+			transition:1s all ease;
+		}
+		.fade-enter{
+			opcaity:0;
+		}
+		.fade-leave{
+			opcaity:0;
+		}
+		<div id="div1" v-show="bsin" transiton="fade"></div>
+
+	第二种方式
+		引入:animation.css(动画库)
+		<div id="div1" class="animated" v-show="bsin" transiton="name"></div>
+		new Vue({
+			transitions:{
+				name:{	//name为div里面自定义的名称
+					enterClass:'zoomInLeft', //class名称为引入的css中定义好的className
+					leaveClass:'zoomOutRight'//class名称为引入的css中定义好的className
+				}
+			}
+		});
+
+Vue组件(一个大对象)		
+	1.全局组件
+		<div>
+			<aaa></aaa>
+		</div>
+		var Aaa = Vue.extend({
+			data(){
+				return {
+					msg:'我是标题'
+				};
+			},
+			methods:{
+				change:function(){
+
+				}
+			}
+			template:'<h3 @click="change">{{msg}}</h3>'
+		})
+		Vue.component('aaa',Aaa);
+
+	2.局部组件
+		var Aaa = Vue.extend({
+			template:'<h3></h3>'
+		})
+		var vm = new Vue({
+			el:'',
+			data:{},
+			methos:{
+
+			},
+			components:{//局部组件
+				aaa:Aaa
+			}
+
+		});
+
+组件的另一种方式
+	1.全局
+	Vue.component('aaa',{
+		template:'<strong>hello word</strong>'
+	});
+
+	2.局部
+	var vm = new Vue({
+		el:'',
+		data:{},
+		methos:{
+
+		},
+		components:{//局部组件
+			'aaa':{
+				template:'<strong>hello word</strong>'
+			}
+		}
+
+	});
+
+配合模板
+	1.template:'<strong>hello word</strong>'
+
+	2.单独放到某个地方
+			a）<script type="x-template" id="aa">
+					<strong>hello word</strong>					
+			   </script>
+
+			   Vue.component('aaa',{	
+			   	template:'#aa'
+			   });
+
+			b)(推荐)
+				<template id="aa">
+					<strong>hello word</strong>
+				</template>
+
+				Vue.component('aaa',{
+					template:'#aa'
+				});
+
+动态组件
+	<input type="button" @click="a='aaa'" value="组件aaa"></input>
+	<input type="button" @click="a='bbb'" value="组件bbb"></input>
+	<components :is='a'></components>
+
+	new Vue({
+		el:'',
+		data:{
+			a:'aaa'
+		},
+		components:{
+			'aaa':{
+				template:'<h2>我是aaaaaa</h2>'
+			},
+			'bbb':{
+				template:'<h2>我是bbbbb</h2>'
+			}
+		}
+	})
+
+vue-devtools ——>调试工具
+
+
+Vue默认情况下，子组件没法访问父组件的数据
+
+组件数据传递:
+	1.子组件就想获取父组件得到data
+		<template id="aaa">
+			<h1>这是标题1</h1>
+			<bbb :m="msg2"></bbb>//绑定数据
+		</template>
+		new Vue({
+			el:'',
+			data:{},
+			methods:{},
+			components:{
+				'aaa':{
+					data(){
+						return {
+							msg2:"我是a组件的数据"
+						}
+					}
+					tempalte:'#aaa',//父组件aaa
+					components:{
+						'bbb':{
+							props:['m'], //通过该属性获取父组件数据
+							template:'<h3>我是子组件bbb</h3>'
+						}
+					}
+				}
+			}
+		})
+	
+	2.父组件获取子组件
+		子组件把自己的数据，发送到父组件	
+			this.$emit('name',this.msg);//子组件发送
+			@name="get"//父组件绑定
+			methods:{//父组件接受
+				get:function(msg){
+
+				}
+			}
+
+slot
+	占个位置
+
+	在temolate中占一个位置
+
+	<template>
+		<h1>ddfsdfsdsfsdf</h1>
+		<slot></slot>
+		<p>hello</p>
+	</template>
+
+	<aaa>
+		<ul>
+			<li>1</li>
+		</ul>
+	</aaa>
+
+	有多个槽口的时候，可以把槽口对应起来
+	<template>
+		<h1>ddfsdfsdsfsdf</h1>
+		<slot name="ol-slot"></slot>
+		<p>hello</p>
+	</template>
+
+	<aaa>
+		<ul slot="ol-slot">
+			<li>1</li>
+		</ul>
+	</aaa>
+
+vue-router(路由)
+
+2.0 Vue---------------------------------------------------------------
+
+1.组件模板不支持片段代码
+
+2.关于组件定义
+	Vue.extend(不推荐)	
+
+	//可以继续使用
+	Vue.component('aaa',{
+		template:''
+	});
+
+	2.0推出了一个简洁的方式
+	var Home={
+		template:''
+	};
+
+	Vue.component(组件名,{
+		tempalte:'Home'
+	})
+
+3.生命周期
+	beforeCreate()	//刚刚被创建,属性都没有
+	created()		//实例已经创建完成了,属性已经绑定
+	beforeMount()   //模板编译之前
+	mounted()		//模板已经编译完成,用的比较多，代替之前的read
+
+	beforeUpdate()  //组件更新之前
+	updated()		//组件更新完毕
+
+	beforeDestory()	//组件销毁前
+	destoryed()		//组件销毁
+
+4.循环
+	2.0里面默认就可以添加重复数据
+
+	去掉了一些隐式变量
+		$index ,$index
+
+	track-by 变成了:key="index"(主要是为了提高性能)
+
+5.自定义键盘
+	之前的版本：
+		Vue.drective('on').keyCode.f1=112;
+	现在
+		Vue.config.keyCode.ctrl=17;
+6.过滤器
+	之前：
+		系统自带了很多过滤器
+	现在
+		内置过滤器全部删除
+
+	lodash工具库
+
+	自定义过滤器还有,但有一些变化
+		自定义的过滤器传参
+		之前{{msg | toDou '12' '5'}}
+
+		现在{{msg | toDou(12,5)}}
+
+7.组件通信
+	 之前
+	 	子组件可以修改父组件的信息，而且可以是同步的
+
+	 现在
+	 	不允许直接给父级直接赋值
+
+	 想要更改？
+	 	1.父组件每次传一个对象给子组件,对象之间引用
+
+	可以单一事件管理组件通信
+		var Event=new Vue();
+		Event.$emit(name,数据);
+		Event.$on(name,function(){})
+
+vue动画
+	<transtion>
+
+	</transiton>
+
+	class定义:
+		fade-enter{}//初始状态
+		fade-enter-active{}//要变成什么样
+
+		fade-leave{}//最终的状态(一般可以不写)
+		fade-leave-active{}//消失的状态
+
+	transtion提供的几个函数
+		@before-enter
+			动画准备进入的时候
+		@enter
+			动画进入
+		@after-enter
+			动画进入之后
+		
+		@before-leave
+		@leave
+		@after-leave
+
+	配合animation.css
+		<transition enter-active-calsss="bounceInLeft" leave-active-calss="zoom">
+			<p v-show="show" class="animated"></p>
+		</transition>
+
+		给transition加也可以
+		<transition enter-active-calsss="animated bounceInLeft" leave-active-calss="animated zoom">
+			<p v-show="show"></p>
+		</transition>
+
+		多个元素运动
+		<transition-group enter-active-calsss="bounceInLeft" leave-active-calss="zoom">
+			<p v-show="show" class="animated" :key="1"></p>
+			<p v-show="show" class="animated" :key="2"></p>
+		</transition-group>
+
+
+

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>链式动画</title>
+	<style type="text/css">
+		body{
+			background: #000;
+		}
+		#div1{
+			position: absolute;
+			right:0px;
+			bottom: 0px;
+			width: 10px;
+			height: 20px;
+		}
+	</style>
+</head>
+<body>
+	<div id="div1">
+		min
+	</div>
+</body>
+</html>

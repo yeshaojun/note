@@ -1,0 +1,3 @@
+$().extend('animate',function(json){
+
+})

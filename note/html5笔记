@@ -1,0 +1,98 @@
+html5
+	1.语义化标签
+		 header
+		 nav
+		 section
+		 footer
+		 aside
+		 article
+	2.属性
+		 ARIA(无障碍富互联网应用程序)——>残障人士
+		 (important)data-*
+		 jquery有一个方法$("").data(name)获取data属性数据
+
+		 jquery操作的时候一定要做变量本地化
+		 document.body.contentEditable=true(文字是否可以编辑)
+
+	3.智能表单
+		 input:text,password,radio,checkbox,button,sumbmit,reset,image
+		 select button 
+		
+	4.网页多媒体
+
+
+	5.Canvas
+
+	6.SVG(矢量图)
+
+Javascript api
+	1.核心平台提升
+		新的选择器
+			document.getElementsByClassName('');//集合
+			document.querySelector('');//返回第一个满足条件的元素
+			document.querySelecotrAll();//返回所有对象		
+
+		Element.classList
+			1.新H5中DOM对象多了一个classlist属性，是一个组数;
+			2.Element.classList
+
+			Element.classList.add();
+			Element.classList.remove();
+			Element.classList.toggle('active')切换,点击的时候添加再点击的时候取消
+			toggle的第二个参数true为添加,false为删除
+
+		访问历史
+			auto file name //自动查找地址的插件
+			window.history.go();刷新页面
+			window.history.forward();
+			window.history.back();
+			//放入历史状态
+			window.history.pushState()
+			
+			element.dataset()相当与$("").data()获取data属性数据
+			//操作历史记录
+				if(window.history && history.pushState){
+					history.pushState('name','title(但浏览器不支持)','地址?dem='+new date().toLocaleTimeString());
+				}else{console.log('不支持');}
+			
+			当我们在伪造访问历史中前进或后退时会执行一个popstate事件
+			window.addEventListenter('popstate',function(e){
+				e.state;
+			})
+	
+		全屏API
+			document.body.webkitRequestFullScreen();
+			
+	2.网页存储
+		application Cache
+			可以让网页离线访问的技术
+		localStorage		
+		sessionStorange
+			getItem方式获取一个不存在的键，返回一个空字符串
+			[]方式获取一个不存在的键，返回一个undefine;
+		WebSql
+		indexedDB
+	3.设备信息访问
+		网络状态
+		硬件访问
+	4.拖放操作
+
+	5.文件
+		<input type="file" id="file-task">//multiple设置多个选择域
+		对于表单里面的input来说，可以直接通过name找到
+		document.form[0].name;
+			
+		dragenter//当前有元素拖拽进来之后会触发
+		dragleave//当前元素离开之后触发
+		
+		//
+		drop当元素放到该对象上会触发一个事件(如果想要捕获drop事件,就一定要阻止dragover);
+		
+
+
+
+	6.网络访问
+
+	7.多线程
+
+	8.桌面通知

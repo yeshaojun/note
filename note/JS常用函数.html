@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<div class="div1 div2 div2" id="div3">
+		gdfgfdggf
+	</div>
+</body>
+	<script type="text/javascript">
+
+		var a=document.getElementById('div3');
+		var b=getElementsByClassName("div2");
+		console.log(b);
+		
+		//表格操作
+		//tHead,tbodies(有多个),tFoot,rows(行),cells（列）
+		// 表单操作
+		// onchange:当值发生改变的时候触发 
+		// text:当光标移出时
+		//onsubmit:事件 当表单提交的时候触发
+			// submit()方法，提交
+		//onreset:事件 重置
+
+		// BOM 浏览器对象模型
+		// window open()方法 打开一个新的（窗口）页面
+		//window.open("url","_self")返回新打开的winsdow对象
+
+		// close()方法 关闭窗口
+
+		// window.navigator.userAgent 浏览器信息
+
+		//window.location 浏览器地址信息 
+		//window.location.search:url ？后面的内容
+		// window.location.hash:url # 后面的内容
+
+		//窗口尺寸与大小
+
+		//可视区的尺寸(看的见的宽高)
+		// document.documentElement.clientHight;
+		//滚动距离（可视区到页面顶部的距离）
+		// document.documentElement.scrollTop
+		//document.body.scrollTop(谷歌浏览器)
+		//var scrollTop=document.documentElement.scrollTop || document.body.scrollTop
+		// 内容高（odiv.scrollHeight）
+		//文档高度（document.documentElement.offsetHeight）
+
+		// 获取对象到窗口的绝对距离
+		function getPost(obj){
+			var pos={left:0,top:0}
+			while(obj){
+				pos.left+=obj.offsetLeft;
+				pos.top+=obj.offsetTop;
+				obj=obj.offsetParent();
+			}
+			return pos;
+		}
+
+		//按类查找元素
+		function getElementsByClassName(className){
+			var arr=[];
+			var obj=document.getElementsByTagName('*');
+			for(var i=0;i<obj.length;i++){
+				var arrClassName=obj[i].className.split(' ');
+				var re=arrIndexOf(arrClassName,className);
+				if(re!=-1){
+					arr.push(obj[i]);
+				}
+			}
+			return arr;
+		}
+		//添加类
+		function addClass(obj,className){
+			if(obj.className==''){
+				obj.className=className;
+			}
+			else{
+				var arrClassName=obj.className.split(' ');
+				var _index=arrIndexOf(arrClassName,className);
+				if(_index==-1){
+					obj.className+=' '+className;
+				}
+
+			}
+		}
+		//删除类
+		function removeClass(obj,className){
+			if(obj.className!=''){
+				var arrClassName=obj.className.split(' ');
+				var _index=arrIndexOf(arrClassName,className);
+				//如果有
+				if(_index!=-1){
+					arrClassName.splice(_index,1);
+					obj.className=arrClassName.join(' ');
+				}
+			}
+		}
+		//查到对象class
+		function arrIndexOf(arr,v){
+			for(var i=0;i<arr.length;i++){
+				if(arr[i]==v){
+					return i;
+				}			
+			}
+			return -1;
+		}
+		// 绑定函数
+		function bind(onj,evname,fn){
+			if(obj.addEventListener){
+				obj.addEventListener(evname,fn,false);
+			}
+			else{
+				obj.attachEvent('on'+evname,function(){
+					fn.call(obj);
+				})
+			}
+		}
+		// 拖拽事件
+		function drag(obj){
+			obj.onmousedown=function(ev){
+				var ev=ev || evrnt;
+				var disX=ev.clientX-this.offsetLeft;
+				var disY=ev.clientY-this.offsetTop;
+				if(obj.setCapture){
+					obj.setCapture();
+				}
+
+				document.onmousemove=function(ev){
+					var ev=ev || evrnt;		
+					var L=ev.clientX-disX;
+					var T=ev.clientY-disY;
+					if(L<0){
+						L=0;
+					}
+					else if(L>document.documentElement.clientWidth-obj.offsetWidth){
+						L=document.documentElement.clientWidth-obj.offsetWidth;
+					}
+					if(T<0){
+						T=0;
+					}
+					else if(T>document.documentElement.clientHeight-obj.offsetHeight){
+						T=document.documentElement.clientHeight-obj.offsetHeight;
+					}
+					obj.style.left = L+ 'px';
+					obj.style.top = T+ 'px';
+				}
+				document.onmouseup=function(){
+					document.onmousemove=document.onmouseup=null;
+					if(obj.releaseCapture){
+						obj.releaseCapture();
+					}
+
+				}
+			return false;
+			}
+
+		}
+
+		// 设置cookie
+		function setCookie(key,value,t){
+			var oDate=new Date();
+			oDate.setDate(oDate.getDate()+t);
+			document.cookie=key+'='+value+';expires='+oDate.toGMTString();
+
+		}
+
+
+		// 读取cookie特定的值
+		function getCookie(key){
+			var arr1=document.cookie.split(';');
+			for(var i=0;i<arr1.length;i++){
+				var arr2=arr[i].split('=');
+				if(arr[0]==key){
+					return decodeURL(arr2[1]);
+				}
+			}
+		}
+		//删除cookie
+		function removeCookie(key){
+			setCookie(key,'',-1);
+		}
+	</script>
+</html>

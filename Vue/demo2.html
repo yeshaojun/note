@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script type="text/javascript" src="lib/vue.js"></script>
+	<script type="text/javascript" src="lib/vue-resource.js"></script>
+	<script type="text/javascript" src="lib/vue-router.js"></script>
+</head>
+
+<body>
+	<div id="app">
+		<aaa></aaa>
+	</div>
+
+	<template id="demo2">
+		<h1>这是第二个demo</h1>
+	</template>
+
+	<script type="text/javascript">
+
+		var home={
+			template:'#demo2'
+		};
+		Vue.component('aaa',home);
+
+		// new Vue({
+		// 	el:'#app',
+		// 	components:{
+		// 		'aaa':home
+		// 	}
+		// });	
+		window.onload=function(){
+		    new Vue({
+		        el:'#app',
+		        data:{
+		           
+		        }
+		    });
+		};
+		
+	</script>
+</body>
+</html>

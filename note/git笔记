@@ -1,0 +1,67 @@
+vi的三种模式
+	i或者a进入输入模式
+	shiht+:进入底行模式
+		一般进行保存操作
+			w保存，w!强制保存
+			q退出
+			w+文件名 另存为
+			e！撤销更改，返回到上一保存状态
+			set:nu 出现行号
+SSH：
+	SSH是一种网络协议，用于计算机之间的机密登录
+	对称性加密，加密和解密用的是同一种秘钥
+	非对称性加密，一种叫公钥，一种叫私钥
+	OpenSSH
+
+版本控制
+	本地版本控制，集中式的版本控制，分布式版本控制
+	git分布式版本控制系统
+	git管理文件的三种状态
+		1.已提交（git仓库）
+		2.已修改（工作目录）
+		3.已暂存（以及暂存区域）
+	git仓库是用来保存版本的地方
+	工作目录是供编辑的文件
+	暂存区域
+
+1.要使用git来管理我们的代码，首先要获取一个仓库。进入根目录，执行git init ，这样就创建了一个。git目录
+2.git add 文件名 将文件添加到暂存区
+3.git commit -m 'name' 将暂存区提交到仓库(并且生成一个新的版本)
+	
+	git status 查看哪个文件被修改了
+		绿色表示在暂存区
+		红色表示有修改
+		untracked未追踪
+
+	git add -A/* 把所有的内容都加到暂存区
+
+	git checkout 文件名 把文件从暂存区恢复到工作目录（撤销）
+
+	git log 查看仓库中的版本
+
+	git reset --hard 提交ID 恢复到某一个提交版本
+
+1.shell 用来操作计算机
+
+2.bash 命令 [--options]...[arguments]...
+
+3.vi/vim 
+
+Git分支：解决多任务冲突的问题
+	master主干
+
+	git branch 分支名称 新建一个分支
+
+	git branch 查看分支
+
+	git checkout 分支名称 进入分支
+
+	git merge master 合并
+
+	git branch -d/D 分支名称 删除分支内容
+
+	git push master 将master共享到远程服务器
+
+	git pulll master 将master下载到本地
+
+

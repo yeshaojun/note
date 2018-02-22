@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>链式动画</title>
+	<script type="text/javascript" src="./move.js"></script>
+	<style type="text/css">
+		body{
+			background: #000;
+						overflow: hidden;
+
+		}
+		#div1{
+			position: absolute;
+			right:0px;
+			bottom: 0px;
+			width: 40px;
+			height: 60px;
+			background: rgb(91,92,94);
+			z-index: 2;
+
+		}
+		#b_menu{
+			position: absolute;
+			right:-200px;
+			bottom:5px;
+			width: 200px;
+			height:50px;
+			background: rgba(91,92,94,.7);
+			z-index: 1;
+
+		}
+		#h_menu{
+			position: absolute;
+			display: none;
+			right:40px;
+			bottom: -400px;
+			width: 200px;
+			height: 400px;
+			background: #888;
+		}
+	</style>
+</head>
+<body>
+	<div id="div1">
+		<span>min<span>
+	</div>
+	<div id="b_menu">
+			<span>min</span>
+			<em>tta</em>
+	</div>
+	<div id="h_menu">
+		
+	</div>
+	<script type="text/javascript">
+		var odiv=document.getElementById('div1');
+		var omu=document.getElementById('b_menu');
+		var h_menu=document.getElementById('h_menu');
+		odiv.onclick=function(){
+			startMove(omu,{right:40},function(){
+				h_menu.style.display='block';
+				startMove(h_menu,{bottom:0})
+			});
+		}
+	</script>
+</body>
+</html>
